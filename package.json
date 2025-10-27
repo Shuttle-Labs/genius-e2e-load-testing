@@ -1,0 +1,38 @@
+{
+  "name": "my-e2e-playwright-ts-po",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+
+    "k6:build": "tsc -p k6/tsconfig.json",
+    "k6:dev": "tsc -p k6/tsconfig.json --watch",
+
+    "k6:run:basic": "npm run k6:build && k6 run dist-k6/main.test.js",
+    "k6:run:basic:docker": "npm run k6:build && docker run --rm -i --env-file .env -v %cd%:/work -w /work grafana/k6:0.50.0 run dist-k6/main.test.js",
+    "k6:run:with-trading": "npm run k6:build && k6 run dist-k6/main.test.js -e RUN_BUY_SELL=true",
+    "k6:run:with-trading:docker": "npm run k6:build && docker run --rm -i -v %cd%:/work -w /work -e BASE_URL -e CHAIN_ID -e RUN_BUY_SELL=true grafana/k6:0.50.0 run dist-k6/main.test.js",
+
+    "k6:analyze": "npm run k6:build && k6 run dist-k6/analyze-api.js",
+    "k6:launchpad": "npm run k6:build && k6 run dist-k6/launchpad-test.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/k6": "^1.3.1",
+    "@types/node": "^20.12.12",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-playwright": "^1.6.2",
+    "k6": "^0.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.9.3"
+  }
+}

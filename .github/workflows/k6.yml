@@ -1,0 +1,35 @@
+name: k6-poc
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url: { required: true, type: string, description: "Base URL for tests" }
+      chain_id:
+        { required: false, type: string, default: "1", description: "Chain ID to use in tests" }
+      run_buy:
+        {
+          required: false,
+          type: string,
+          default: "false",
+          description: "Whether to run buy/sell tests",
+        }
+
+jobs:
+  k6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Install dev deps
+        run: npm ci
+      - name: Build k6 TypeScript
+        run: npm run k6:build
+      - name: Run k6
+        uses: grafana/k6-action@v0.3.1
+        with:
+          filename: dist-k6/basic-flow.js
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+          CHAIN_ID: ${{ inputs.chain_id }}
+          RUN_BUY_SELL: ${{ inputs.run_buy }}
