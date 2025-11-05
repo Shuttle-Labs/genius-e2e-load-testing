@@ -1,10 +1,10 @@
 import path from "path";
-import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface";
-import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface";
-import { KeyDerivationService } from "../../services/wallet/key-derivation-service";
-import { MnemonicService } from "../../services/wallet/mnemonic-service";
-import { SolanaWalletGenerator } from "../../services/wallet/solana-wallet-generator";
-import { CsvWalletStorage } from "../../storage/csv-wallet-storage";
+import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface.js";
+import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface.js";
+import { SolanaWalletGenerator } from "../../services/wallet/solana-wallet-generator.js";
+import { CsvWalletStorage } from "../../storage/csv-wallet-storage.js";
+import { MnemonicService } from "../../services/wallet/mnemonic-service.js";
+import { KeyDerivationService } from "../../services/wallet/key-derivation-service.js";
 
 export class WalletServiceFactory {
   static create(): {

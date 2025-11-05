@@ -1,8 +1,8 @@
 import * as fs from "fs";
-import { ISetupService } from "../../tests/shared/types/setup.types";
-import { SetupConfig } from "../../config/setup/setup-config";
-import { WalletServiceFactory } from "../../factories/wallet/wallet-service-factory";
-import { WalletGenerationOrchestrator } from "./wallet-generation-orchestrator";
+import { ISetupService } from "../../tests/shared/types/setup.types.ts";
+import { SetupConfig } from "../../config/setup/setup-config.ts";
+import { WalletServiceFactory } from "../../factories/wallet/wallet-service-factory.ts";
+import { WalletGenerationOrchestrator } from "./wallet-generation-orchestrator.ts";
 
 
 export class WalletGenerationService implements ISetupService {

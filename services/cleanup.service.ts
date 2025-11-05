@@ -1,38 +1,24 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { ICleanupService } from "../tests/shared/types/setup.types";
-import { SetupConfig } from "../config/setup/setup-config";
-
+import { ICleanupService } from "../tests/shared/types/setup.types.ts";
+import { SetupConfig } from "../config/setup/setup-config.ts";
 
 export class CleanupService implements ICleanupService {
   async cleanup(): Promise<void> {
     console.log("🧼 Global teardown started...");
 
-    this.removePhantomState();
     this.removeTmpUserDataDirs();
 
     if (SetupConfig.CLEAN_WALLETS_ENABLED) {
       this.removeWallets();
     }
 
-    if (SetupConfig.CLEAN_EXTENSIONS_ENABLED) {
-      this.removeExtensions();
-    }
-
     console.log("✅ Global teardown completed");
-  }
-
-  private removePhantomState(): void {
-    this.safeRemove(SetupConfig.PHANTOM_STATE_PATH);
   }
 
   private removeWallets(): void {
     this.safeRemove(SetupConfig.WALLETS_DIR);
-  }
-
-  private removeExtensions(): void {
-    this.safeRemove(SetupConfig.PHANTOM_DIR);
   }
 
   private removeTmpUserDataDirs(): void {
@@ -40,7 +26,7 @@ export class CleanupService implements ICleanupService {
     try {
       const entries = fs.readdirSync(tmpDir, { withFileTypes: true });
       for (const entry of entries) {
-        if (entry.isDirectory() && entry.name.startsWith("pw-phantom-")) {
+        if (entry.isDirectory() && entry.name.startsWith("pw-")) {
           this.safeRemove(path.join(tmpDir, entry.name));
         }
       }
@@ -65,3 +51,4 @@ export class CleanupService implements ICleanupService {
     }
   }
 }
+

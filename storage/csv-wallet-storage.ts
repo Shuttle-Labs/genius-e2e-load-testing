@@ -1,6 +1,6 @@
 import path from "path";
-import { Wallet } from "../models/wallet";
-import { IWalletStorage } from "../interfaces/wallet/wallet-storage.interface";
+import { Wallet } from "../models/wallet.ts";
+import { IWalletStorage } from "../interfaces/wallet/wallet-storage.interface.ts";
 import * as fs from "fs";
 
 export class CsvWalletStorage implements IWalletStorage {

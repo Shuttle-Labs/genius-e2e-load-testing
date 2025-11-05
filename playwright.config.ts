@@ -20,8 +20,8 @@ export default defineConfig({
     headless: true
   },
   workers: isCI ? 1 : undefined,
-  globalSetup: './tests/global-setup.ts',
-  globalTeardown: './tests/global-teardown.ts',
+  globalSetup: './setup/global/global-setup.ts',
+  globalTeardown: './setup/global/global-teardown.ts',
 
   projects: [
     {

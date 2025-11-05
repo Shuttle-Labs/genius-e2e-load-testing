@@ -1,6 +1,6 @@
-import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface";
-import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface";
-import { WalletData } from "../../interfaces/wallet/wallet-generator.interface";
+import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface.ts";
+import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface.ts";
+import { WalletData } from "../../interfaces/wallet/wallet-generator.interface.ts";
 
 export class WalletGenerationOrchestrator {
   constructor(

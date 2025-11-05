@@ -1,13 +1,13 @@
 import * as fs from "fs";
-import { IWalletFundingService } from "../../tests/shared/types/setup.types";
-import { SetupConfig } from "../../config/setup/setup-config";
+import { IWalletFundingService } from "../../tests/shared/types/setup.types.ts";
+import { SetupConfig } from "../../config/setup/setup-config.ts";
 
 
 export class WalletFundingService implements IWalletFundingService {
   private web3: any = null;
 
   async fundWalletsIfNeeded(): Promise<void> {
-    if (!SetupConfig.SOLANA_AIRDROP_ENABLED || !SetupConfig.isRealMode()) {
+    if (!SetupConfig.SOLANA_AIRDROP_ENABLED) {
       return;
     }
 
