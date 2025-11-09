@@ -8,6 +8,12 @@
 /coverage
 /k6/results
 /dist-k6
+/extensions
+/.cache-synpress
+# wallets
+wallets/sol-wallets.csv
+wallets/*.json
+!wallets/README.md
 # OS
 .DS_Store
 Thumbs.db

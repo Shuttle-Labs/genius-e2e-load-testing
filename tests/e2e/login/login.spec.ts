@@ -1,4 +1,4 @@
-import { expect, test } from "../../fixtures/test";
+import { expect, test } from "../../fixtures/test.ts";
 
 test.describe("Login page functionality", () => {
   test("Start trading page loads", async ({ page, header }) => {
