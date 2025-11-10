@@ -1,18 +1,14 @@
-import { defineWalletSetup } from '@synthetixio/synpress';
-import { MetaMask, getExtensionId } from '@synthetixio/synpress-metamask/playwright';
-import type { BrowserContext, Page } from '@playwright/test';
+// import { defineWalletSetup } from '@synthetixio/synpress'
+// import { MetaMask } from '@synthetixio/synpress/playwright'
 
-const PASSWORD = process.env.WALLET_PASSWORD ?? 'Test1234!';
-const SEED =
-  process.env.WALLET_MNEMONIC ??
-  'test test test test test test test test test test test junk';
+// const SEED_PHRASE = 'test test test test test test test test test test test junk'
+// const PASSWORD = 'Tester@1234'
 
-export default defineWalletSetup(
-  PASSWORD,
-  async (context: BrowserContext, walletPage: Page) => {
-    const extensionId = await getExtensionId(context, 'MetaMask');
-    const metamask = new MetaMask(context, walletPage, PASSWORD, extensionId);
-    await metamask.importWallet(SEED);
-  }
-);
+// export default defineWalletSetup(PASSWORD, async (context, walletPage) => {
+//   const metamask = new MetaMask(context, walletPage, PASSWORD)
+//   await metamask.importWallet(SEED_PHRASE)
+// })
+
+// // Додаємо walletPassword для використання в тестах
+// export const walletPassword = PASSWORD
 

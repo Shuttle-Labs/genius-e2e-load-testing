@@ -1,7 +1,7 @@
 import * as fs from "fs";
-import { IWalletReader, Wallet } from "../../tests/fixtures/types/wallet.types.ts";
-import { TestConfig } from "../../config/test/test-config.ts";
-import { WalletModel } from "../../models/wallet.model.ts";
+import { IWalletReader, Wallet } from "../../tests/fixtures/types/wallet.types";
+import { TestConfig } from "../../config/test/test-config";
+import { WalletModel } from "../../models/wallet.model";
 
 export class WalletReaderService implements IWalletReader {
   async getWallet(index: number = 0): Promise<Wallet> {

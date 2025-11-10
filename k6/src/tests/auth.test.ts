@@ -1,5 +1,5 @@
-import { makeRequest } from "../utils/request-helper.js";
-import { CONFIG } from "../config/test-config.js";
+import { makeRequest } from "../utils/request-helper";
+import { CONFIG } from "../config/test-config";
 import { check } from "k6";
 
 export function loginTest(): boolean {

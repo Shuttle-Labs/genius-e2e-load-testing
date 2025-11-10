@@ -1,4 +1,4 @@
-import { TestConfig, BuyConfig } from "../types/config.js";
+import { TestConfig, BuyConfig } from "../types/config";
 
 export const CONFIG: TestConfig = {
   baseUrl: __ENV.BASE_URL as string,

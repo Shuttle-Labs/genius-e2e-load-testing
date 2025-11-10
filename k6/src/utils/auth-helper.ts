@@ -1,5 +1,5 @@
 import http from "k6/http";
-import { CONFIG } from "../config/test-config.js";
+import { CONFIG } from "../config/test-config";
 
 export function setupAuth(): void {
   if (CONFIG.auth.token && CONFIG.auth.cookieName && !CONFIG.auth.headerName) {

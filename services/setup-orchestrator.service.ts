@@ -1,8 +1,6 @@
-import { ISetupService } from "../tests/shared/types/setup.types.ts";
-import { WalletFundingService } from "./wallet/wallet-funding.service.ts";
-import { WalletGenerationService } from "./wallet/wallet-generation.service.ts";
-
-
+import { ISetupService } from "../tests/shared/types/setup.types";
+import { WalletFundingService } from "./wallet/wallet-funding.service";
+import { WalletGenerationService } from "./wallet/wallet-generation.service";
 
 export class SetupOrchestratorService implements ISetupService {
   constructor(

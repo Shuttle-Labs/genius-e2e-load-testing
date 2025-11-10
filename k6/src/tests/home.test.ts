@@ -1,4 +1,4 @@
-import { goto, validateResponse } from "../utils/request-helper.js";
+import { goto, validateResponse } from "../utils/request-helper";
 
 export function homePageTest(): boolean {
   const response = goto("/", "home_html");

@@ -1,13 +1,12 @@
-import { homePageTest } from "./tests/home.test.js";
-import { loginTest } from "./tests/auth.test.js";
-import { launchpadsTest } from "./tests/launchpads.test.js";
-import { trendingTokensTest } from "./tests/trending.test.js";
-import { setupAuth } from "./utils/auth-helper.js";
-import { TestStep } from "./types/config.js";
+import { homePageTest } from "./tests/home.test";
+import { loginTest } from "./tests/auth.test";
+import { launchpadsTest } from "./tests/launchpads.test";
+import { trendingTokensTest } from "./tests/trending.test";
+import { setupAuth } from "./utils/auth-helper";
+import { TestStep } from "./types/config";
 import { sleep } from "k6";
-import { timeStep } from "./metrics/custom-metrics.js";
-
-export { options } from "./config/test-config.js";
+import { timeStep } from "./metrics/custom-metrics";
+export { options } from "./config/test-config";
 
 export default function (): void {
   setupAuth();

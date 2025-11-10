@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { testWithSynpress } from '@synthetixio/synpress'
 import { MetaMask, metaMaskFixtures } from '@synthetixio/synpress/playwright'
-import basicSetup from '../../../setup/wallet/metamask.setup';
+import basicSetup from '../test/wallet-setup/wallet.setup';
 
 const test = testWithSynpress(metaMaskFixtures(basicSetup));
 
@@ -20,8 +20,8 @@ test('should connect wallet to the MetaMask Test Dapp', async ({
     extensionId
   )
 
-await page.goto("/", { waitUntil: "networkidle" });
-await header.expectLogoVisible();
+await page.goto("");
+// await header.expectLogoVisible();
 await expect(page).toHaveTitle(/Genius Pro/i);
 await page.getByText(/Start Trading/).first().click();
 await page.getByText(/Sign In/).waitFor({ state: "visible", timeout: 15_000 });

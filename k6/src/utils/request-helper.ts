@@ -1,7 +1,7 @@
 import http from "k6/http";
 import { check } from "k6";
-import { CONFIG } from "../config/test-config.js";
-import { tPage, stepOk } from "../metrics/custom-metrics.js";
+import { CONFIG } from "../config/test-config";
+import { tPage, stepOk } from "../metrics/custom-metrics";
 
 export function makeHeaders(contentType: boolean = true): Record<string, string> {
   const headers: Record<string, string> = {};

@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { ICleanupService } from "../tests/shared/types/setup.types.ts";
-import { SetupConfig } from "../config/setup/setup-config.ts";
+import { ICleanupService } from "../tests/shared/types/setup.types";
+import { SetupConfig } from "../config/setup/setup-config";
 
 export class CleanupService implements ICleanupService {
   async cleanup(): Promise<void> {

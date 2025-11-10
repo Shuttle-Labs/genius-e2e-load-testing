@@ -11,7 +11,7 @@
 /extensions
 /.cache-synpress
 # wallets
-wallets/sol-wallets.csv
+/wallets
 wallets/*.json
 !wallets/README.md
 # OS

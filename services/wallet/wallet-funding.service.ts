@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { IWalletFundingService } from "../../tests/shared/types/setup.types.ts";
-import { SetupConfig } from "../../config/setup/setup-config.ts";
+import { IWalletFundingService } from "../../tests/shared/types/setup.types";
+import { SetupConfig } from "../../config/setup/setup-config";
 
 
 export class WalletFundingService implements IWalletFundingService {

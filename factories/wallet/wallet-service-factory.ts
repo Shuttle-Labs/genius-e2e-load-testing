@@ -1,10 +1,9 @@
 import path from "path";
-import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface.js";
-import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface.js";
-import { SolanaWalletGenerator } from "../../services/wallet/solana-wallet-generator.js";
-import { CsvWalletStorage } from "../../storage/csv-wallet-storage.js";
-import { MnemonicService } from "../../services/wallet/mnemonic-service.js";
-import { KeyDerivationService } from "../../services/wallet/key-derivation-service.js";
+import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface";
+import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface";
+import { EVMWalletGenerator } from "../../services/wallet/evm-wallet-generator";
+import { CsvWalletStorage } from "../../storage/csv-wallet-storage";
+import { MnemonicService } from "../../services/wallet/mnemonic-service";
 
 export class WalletServiceFactory {
   static create(): {
@@ -12,12 +11,11 @@ export class WalletServiceFactory {
     storage: IWalletStorage;
   } {
     const environment = process.env.CI ? "ci" : "local";
+
     const mnemonicService = new MnemonicService(process.env.WALLET_SEED?.trim());
-    const keyDerivationService = new KeyDerivationService();
 
-    const generator = new SolanaWalletGenerator(mnemonicService, keyDerivationService, environment);
-
-    const storage = new CsvWalletStorage(path.join(process.cwd(), "wallets", "sol-wallets.csv"));
+    const generator = new EVMWalletGenerator(environment);
+    const storage = new CsvWalletStorage(path.join(process.cwd(), "wallets", "evm-wallets.csv"));
 
     return { generator, storage };
   }

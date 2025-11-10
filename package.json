@@ -11,21 +11,28 @@
     "codegen": "playwright codegen",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "k6:build": "tsc -p k6/tsconfig.json",
-    "k6:dev": "tsc -p k6/tsconfig.json --watch",
+
+    "k6:build": "tsc -p k6/tsconfig.k6.json",
+    "k6:dev": "tsc -p k6/tsconfig.k6.json --watch",
     "k6:run:basic": "npm run k6:build && k6 run dist-k6/main.test.js",
     "k6:run:basic:docker": "npm run k6:build && docker run --rm -i --env-file .env -v %cd%:/work -w /work grafana/k6:0.50.0 run dist-k6/main.test.js",
     "k6:run:with-trading": "npm run k6:build && k6 run dist-k6/main.test.js -e RUN_BUY_SELL=true",
     "k6:run:with-trading:docker": "npm run k6:build && docker run --rm -i -v %cd%:/work -w /work -e BASE_URL -e CHAIN_ID -e RUN_BUY_SELL=true grafana/k6:0.50.0 run dist-k6/main.test.js",
     "k6:analyze": "npm run k6:build && k6 run dist-k6/analyze-api.js",
     "k6:launchpad": "npm run k6:build && k6 run dist-k6/launchpad-test.js",
+
     "generate:wallets": "tsx scripts/generate-wallets.ts",
-    "global:setup": "tsx global-setup.ts"
+    "global:setup": "tsx setup/global/global-setup.ts",
+    "build": "tsc",
+    "test:ci": "playwright test --config=playwright.config.ts",
+    "test:wallet": "playwright test --project=chromium-metamask",
+    "generate:evm-wallets": "tsx scripts/generate-evm-wallets.ts",
+    "test:metamask": "npm run generate:evm-wallets && playwright test --project=chromium-metamask"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.2",
+    "@playwright/test": "1.48.2",
     "@solana/web3.js": "^1.98.4",
-    "@synthetixio/synpress": "^4.1.1",
+    "@synthetixio/synpress": "4.1.1",
     "@types/k6": "^1.3.1",
     "@types/node": "^20.19.24",
     "bip39": "^3.1.0",
@@ -40,9 +47,10 @@
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.6.0"
   },
   "dependencies": {
-    "csv-parser": "^3.2.0"
+    "csv-parser": "^3.2.0",
+    "ethers": "^6.0.0"
   }
 }

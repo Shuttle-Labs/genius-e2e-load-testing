@@ -1,6 +1,6 @@
-import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface.ts";
-import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface.ts";
-import { WalletData } from "../../interfaces/wallet/wallet-generator.interface.ts";
+import { IWalletGenerator } from "../../interfaces/wallet/wallet-generator.interface";
+import { IWalletStorage } from "../../interfaces/wallet/wallet-storage.interface";
+import { WalletData } from "../../interfaces/wallet/wallet-generator.interface";
 
 export class WalletGenerationOrchestrator {
   constructor(
@@ -9,7 +9,7 @@ export class WalletGenerationOrchestrator {
     private readonly logger: Console = console
   ) {}
 
-  async generateWallets(count: number = 5): Promise<void> {
+  async generateWallets(count: number = 1): Promise<void> {
     const wallets: WalletData[] = [];
 
     for (let i = 0; i < count; i++) {

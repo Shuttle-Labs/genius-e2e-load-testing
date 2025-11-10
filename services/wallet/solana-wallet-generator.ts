@@ -1,7 +1,7 @@
-import { IWalletGenerator, WalletData } from "../../interfaces/wallet/wallet-generator.interface.ts";
-import { Wallet } from "../../models/wallet.js";
-import { KeyDerivationService } from "./key-derivation-service.ts";
-import { MnemonicService } from "./mnemonic-service.js";
+import { IWalletGenerator, WalletData } from "../../interfaces/wallet/wallet-generator.interface";
+import { Wallet } from "../../models/wallet";
+import { KeyDerivationService } from "./key-derivation-service";
+import { MnemonicService } from "./mnemonic-service";
 
 export class SolanaWalletGenerator implements IWalletGenerator {
   constructor(

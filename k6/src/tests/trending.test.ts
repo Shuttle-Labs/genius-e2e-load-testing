@@ -1,6 +1,6 @@
-import { makeRequest, validateResponse } from "../utils/request-helper.js";
-import { CONFIG } from "../config/test-config.js";
-import { pickAnyToken } from "../helpers.js";
+import { makeRequest, validateResponse } from "../utils/request-helper";
+import { CONFIG } from "../config/test-config";
+import { pickAnyToken } from "../helpers";
 
 export function trendingTokensTest(): string | null {
   const response = makeRequest(
