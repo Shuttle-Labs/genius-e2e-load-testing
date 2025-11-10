@@ -27,7 +27,8 @@
     "test:ci": "playwright test --config=playwright.config.ts",
     "test:wallet": "playwright test --project=chromium-metamask",
     "generate:evm-wallets": "tsx scripts/generate-evm-wallets.ts",
-    "test:metamask": "npm run generate:evm-wallets && playwright test --project=chromium-metamask"
+    "test:metamask": "npm run generate:evm-wallets && playwright test --project=chromium-metamask",
+    "syn:cache": "synpress test/wallet-setup"
   },
   "devDependencies": {
     "@playwright/test": "1.48.2",

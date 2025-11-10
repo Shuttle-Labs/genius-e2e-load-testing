@@ -10,8 +10,8 @@ const isCI = !!process.env.CI;
 
 export default defineConfig({
   testDir: './test',
-  timeout: 160_000,
-  expect: { timeout: 10_000 },
+  timeout: 300_000,
+  expect: { timeout: 30_000 },
   retries: isCI ? 2 : 0,
   reporter: [['html', { open: 'never' }], ['list']],
 
@@ -20,7 +20,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    headless: true
+    headless: false,
+    launchOptions: {
+      slowMo: 1000
+    }
   },
 
   workers: isCI ? 1 : undefined,
