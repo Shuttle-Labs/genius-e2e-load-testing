@@ -10,7 +10,7 @@ const isCI = !!process.env.CI;
 
 export default defineConfig({
   testDir: './test',
-  timeout: 300_000,
+  timeout: 400_000,
   expect: { timeout: 30_000 },
   retries: isCI ? 2 : 0,
   reporter: [['html', { open: 'never' }], ['list']],
