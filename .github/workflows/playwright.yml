@@ -5,29 +5,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Install deps
         run: npm ci
-
-      - name: Run global setup
-        run: npm run global:setup
+      - name: Install browsers
+        run: npx playwright install --with-deps
+        working-directory: ./playwright
+      - name: Build Synpress cache
+        run: npx synpress test/wallet-setup
+        working-directory: ./playwright
+        env:
+          SEED_PHRASE: ${{ secrets.SEED_PHRASE }}
+          METAMASK_PASSWORD: ${{ secrets.METAMASK_PASSWORD }}
+      - name: Run tests
+        run: npx playwright test
+        working-directory: ./playwright
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
-
-      - name: Run Playwright tests
-        run: npm run test:ci
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-
-      - name: Upload test results
+      - name: Upload report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: playwright-results
-          path: |
-            test-results/
-            playwright-report/
+          name: playwright-report
+          path: playwright/playwright-report

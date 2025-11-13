@@ -1,26 +1,9 @@
 /node_modules
-/playwright-report
-/test-results
-/.env
-/.idea
-/.vscode
-/dist
-/coverage
+/playwright/playwright-report
+/playwright/test-results
+/playwright/.cache-synpress
+/k6/dist-k6
 /k6/results
-/dist-k6
-/extensions
-/.cache-synpress
-# wallets
 /wallets
-wallets/*.json
-!wallets/README.md
-# OS
-.DS_Store
-Thumbs.db
+.env
 
-# Logs
-*.log
-
-# npm debug files
-npm-debug.log*
-yarn-error.log*
