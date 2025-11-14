@@ -7,11 +7,11 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts,.js",
 
-    "pw:install": "playwright install --with-deps",
-    "pw:test": "playwright test",
-    "pw:test:ui": "playwright test --ui",
-    "pw:syn:cache": "synpress test/wallet-setup",
-
+    "pw:install": "cd playwright && npx playwright install --with-deps",
+    "pw:syn:cache": "cd playwright && npx synpress test/wallet-setup",
+    "pw:test": "cd playwright && npx playwright test",
+    "pw:test:ui": "cd playwright && npx playwright test --ui",
+    
     "k6:build": "tsc -p k6/tsconfig.k6.json",
     "k6:run": "npm run k6:build && k6 run dist-k6/main.test.js"
   },

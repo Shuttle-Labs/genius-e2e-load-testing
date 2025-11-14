@@ -6,4 +6,5 @@
 /k6/results
 /wallets
 .env
+/test-results
 

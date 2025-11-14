@@ -2,11 +2,11 @@
 import { testWithSynpress } from '@synthetixio/synpress';
 import { MetaMask, metaMaskFixtures } from '@synthetixio/synpress/playwright';
 
-const demoSetup = require('./wallet-setup/demo.setup.js');
+const demoSetup = require('../wallet-setup/demo.setup.js');
 const walletPassword = demoSetup.walletPassword;
 
-import { DappLoginPage } from './pages/dapp-login.page';
-import { handleMetaMaskSignature } from './utils/mm-signature.util';
+import { DappLoginPage } from '../pages/dapp-login.page';
+import { handleMetaMaskSignature } from '../utils/mm-signature.util';
 
 const test = testWithSynpress(metaMaskFixtures(demoSetup));
 const { expect } = test;
@@ -28,7 +28,5 @@ test('Login via wallet (MetaMask)', async ({ context, page, metamaskPage, extens
     await metamask.connectToDapp();
     await handleMetaMaskSignature(context);
     await handleMetaMaskSignature(context);
-
-    console.log('🕒 Waiting before closing the browser...');
     await page.pause();
 });
