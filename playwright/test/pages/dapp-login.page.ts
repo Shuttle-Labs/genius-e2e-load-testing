@@ -5,7 +5,8 @@ export class DappLoginPage {
     readonly signInBtn: (dapp: Page) => Locator;
     readonly connectWalletBtn: (dapp: Page) => Locator;
     readonly metaMaskOption: (dapp: Page) => Locator;
-    readonly closeModalBtn: (dapp: Page) => Locator;
+    readonly loggedInUser: (dapp: Page) => Locator;
+    readonly skip2FAModal: (dapp: Page) => Locator;
 
     constructor(private readonly root: Page) {
         this.startTradingBtn = this.root.getByText(/Start Trading/i).first();
@@ -19,8 +20,11 @@ export class DappLoginPage {
         this.metaMaskOption = (dapp: Page) =>
             dapp.locator('button:has-text("MetaMask")').first();
 
-        this.closeModalBtn = (dapp: Page) =>
-            dapp.getByRole('button', { name: 'Close' });
+        this.loggedInUser = (dapp: Page) =>
+            dapp.locator('[data-sentry-component="UserCog"]');
+
+        this.skip2FAModal = (dapp: Page) =>
+            dapp.getByText('Skip');
     }
 
     async openDapp(ctx: any): Promise<Page> {
@@ -28,6 +32,7 @@ export class DappLoginPage {
             ctx.waitForEvent('page'),
             this.startTradingBtn.click(),
         ]);
+        await dapp.goto("https://staging.tradegenius.com/asset");
         return dapp;
     }
 
@@ -57,8 +62,12 @@ export class DappLoginPage {
         await option.click({ timeout: 60000 });
     }
 
-    async closeModal(dapp: Page) {
-        await this.closeModalBtn(dapp).click();
+    async verifyLoggedIn(dapp: Page) {
+        await this.loggedInUser(dapp).waitFor({ state: 'visible', timeout: 15000 });
+    }
+
+    async skip2FA(dapp: Page) {
+        await this.skip2FAModal(dapp).click();
     }
 }
 

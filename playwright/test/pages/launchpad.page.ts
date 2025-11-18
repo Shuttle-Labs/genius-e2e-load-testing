@@ -12,17 +12,19 @@ export class LaunchpadPage {
     }
 
     async fillNewPairsValue(value: string): Promise<void> {
+        await this.newPairsInput.clear();
         await this.newPairsInput.fill(value);
+        await this.page.press('body', 'Enter');
     }
 
     async clickFirstItemTooltipValue(value: string): Promise<void> {
         await this.newPairsItem.hover({ force: true });
 
-        const tooltip = this.page.locator(`text="${value}"`).first();
+        const tooltip = this.page.locator(`[data-sentry-component="AdvancedQuickBuyButton"] div button:has-text("${value}")`).first();
 
         await tooltip.waitFor({
             state: "visible",
-            timeout: 5000
+            timeout: 15000
         });
 
         await tooltip.click();

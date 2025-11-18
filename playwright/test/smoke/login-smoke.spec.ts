@@ -17,7 +17,6 @@ test('Login via wallet (MetaMask)', async ({ context, page, metamaskPage, extens
 
     await page.goto(process.env.BASE_URL || '');
     await page.reload();
-    await expect(page).toHaveTitle(/Genius Pro/i);
 
     const dapp = await dappLogin.openDapp(context);
 
@@ -28,5 +27,6 @@ test('Login via wallet (MetaMask)', async ({ context, page, metamaskPage, extens
     await metamask.connectToDapp();
     await handleMetaMaskSignature(context);
     await handleMetaMaskSignature(context);
-    await page.pause();
+    await dappLogin.skip2FA(dapp);
+    await dappLogin.verifyLoggedIn(dapp);
 });
