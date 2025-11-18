@@ -1,10 +1,13 @@
 import { Page, Locator } from '@playwright/test';
+import { TableComponent } from '../components/common/table.component';
 
-export class DiscoverPage {
-    readonly quickBuyInput: Locator;
-
-    constructor(private readonly page: Page) {
-        this.quickBuyInput = this.page.locator('input.text-genius-cream').first();
+export class DiscoverPage extends TableComponent {
+    readonly firstTableElement: Locator;
+    readonly firstTokenText: Locator;
+    constructor(page: Page) {
+        super(page);
+        this.firstTableElement = page.locator('[data-sentry-component="AdvancedMemesTable"] > div:nth-of-type(2) > div > div > div > div').first();
+        this.firstTokenText = this.firstTableElement.locator('.text-md.text-genius-cream');
     }
 
     async fillQuickBuy(value: string): Promise<void> {
@@ -13,7 +16,16 @@ export class DiscoverPage {
         await this.page.press('body', 'Enter');
     }
 
-    async clickFirstToken(value: string): Promise<void> {
+    async getFirstTokenLabel(): Promise<string> {
+    await this.firstTableElement.waitFor({ state: 'visible', timeout: 15_000 });
+
+    const text = await this.firstTokenText.textContent();
+    return text?.trim() ?? '';
+  }
+
+    async clickFirstToken(value: string): Promise<string> {
+        const tokenLabel = await this.getFirstTokenLabel();
+
         const button = this.page.locator(`button.bg-genius-pink:has-text("${value}")`).first();
 
         await button.waitFor({
@@ -22,5 +34,6 @@ export class DiscoverPage {
         });
 
         await button.click();
+        return tokenLabel;
     }
 }

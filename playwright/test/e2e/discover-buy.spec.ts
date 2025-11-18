@@ -1,18 +1,23 @@
 // @ts-nocheck
 import { test, expect } from '../fixtures/wallet.fixtures';
 import { DiscoverPage } from '../pages/discover.page';
-import { MessagesPage } from '../pages/common/messages.page';
+import { NotificationsComponent } from '../components/notifications.component';
+import { TOKEN } from '../constants/token';
+import { MESSAGES } from '../constants/messages';
 
-test('Buy token on Discover page', async ({ dapp }) => {
+test('Buy token on Discover page', async ({ dapp, page }) => {
     const discover = new DiscoverPage(dapp);
-    const messages = new MessagesPage(dapp);
-    const tokenValue = '0.001';
+    const notifications = new NotificationsComponent(dapp);
 
-    await discover.fillQuickBuy(tokenValue);
-    await discover.clickFirstToken(tokenValue);
-    await messages.verifySuccessMessage();
-    await messages.openNotifications();
-    await messages.verifyLastNotificationDisplayed()
-    await messages.openLastNotification();
-    await messages.checkTransactionStatus("Success");
+    await discover.fillQuickBuy(TOKEN.TEST_VALUE);
+
+    const tokenLabel = await discover.clickFirstToken(TOKEN.TEST_VALUE);
+
+    await notifications.verifySuccessMessage();
+    await notifications.openNotifications();
+    await notifications.verifyLastNotificationDisplayed()
+    await notifications.openLastNotification();
+    await notifications.checkTransactionStatus(MESSAGES.SUCCESS);
+    await notifications.verifyLastNotificationContainsToken(tokenLabel);
+  await notifications.verifyTransactionToken(tokenLabel);
 });

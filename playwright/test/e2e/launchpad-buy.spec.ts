@@ -1,19 +1,24 @@
 // @ts-nocheck
 import { test } from "../fixtures/wallet.fixtures";
 import { LaunchpadPage } from "../pages/launchpad.page";
-import { MessagesPage } from "../pages/common/messages.page";
+import { NotificationsComponent } from "../components/notifications.component";
+import { TOKEN } from '../constants/token';
+import { MESSAGES } from '../constants/messages';
 
 test("Buy token on Solana Launchpad", async ({ dapp, page }) => {
   const launchpad = new LaunchpadPage(dapp);
-  const messages = new MessagesPage(dapp);
-  const pairsValue = "0.001";
+  const notifications = new NotificationsComponent(dapp);
 
   await launchpad.openLaunchpads();
-  await launchpad.fillNewPairsValue(pairsValue);
-  await launchpad.clickFirstItemTooltipValue(pairsValue);
-  await messages.verifySuccessMessage();
-  await messages.openNotifications();
-  await messages.verifyLastNotificationDisplayed()
-  await messages.openLastNotification();
-  await messages.checkTransactionStatus("Success");
+  await launchpad.fillNewPairsValue(TOKEN.TEST_VALUE);
+
+  const tokenLabel = await launchpad.clickFirstItemTooltipValue(TOKEN.TEST_VALUE);
+
+  await notifications.verifySuccessMessage();
+  await notifications.openNotifications();
+  await notifications.verifyLastNotificationDisplayed()
+  await notifications.openLastNotification();
+  await notifications.checkTransactionStatus(MESSAGES.SUCCESS);
+  await notifications.verifyLastNotificationContainsToken(tokenLabel);
+  await notifications.verifyTransactionToken(tokenLabel);
 });
