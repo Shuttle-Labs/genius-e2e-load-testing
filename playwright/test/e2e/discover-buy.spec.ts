@@ -11,4 +11,8 @@ test('Buy token on Discover page', async ({ dapp }) => {
     await discover.fillQuickBuy(tokenValue);
     await discover.clickFirstToken(tokenValue);
     await messages.verifySuccessMessage();
+    await messages.openNotifications();
+    await messages.verifyLastNotificationDisplayed()
+    await messages.openLastNotification();
+    await messages.checkTransactionStatus("Success");
 });
