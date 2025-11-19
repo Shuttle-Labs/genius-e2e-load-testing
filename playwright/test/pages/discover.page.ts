@@ -1,18 +1,26 @@
 import { Page, Locator } from '@playwright/test';
 import { TableComponent } from '../components/common/table.component';
+import { BasePage } from './base.page';
+import { NotificationsComponent } from '../components/notifications.component';
 
-export class DiscoverPage extends TableComponent {
+export class DiscoverPage extends BasePage {
     readonly firstTableElement: Locator;
     readonly firstTokenText: Locator;
+    readonly tableComponent: TableComponent;
+    readonly notificationsComponent: NotificationsComponent;
+    
     constructor(page: Page) {
         super(page);
         this.firstTableElement = page.locator('[data-sentry-component="AdvancedMemesTable"] > div:nth-of-type(2) > div > div > div > div').first();
         this.firstTokenText = this.firstTableElement.locator('.text-md.text-genius-cream');
+
+        this.tableComponent = new TableComponent(page);
+        this.notificationsComponent = new NotificationsComponent(page);
     }
 
     async fillQuickBuy(value: string): Promise<void> {
-        await this.quickBuyInput.clear();
-        await this.quickBuyInput.fill(value);
+        await this.tableComponent.quickBuyInput.clear();
+        await this.tableComponent.quickBuyInput.fill(value);
         await this.page.press('body', 'Enter');
     }
 

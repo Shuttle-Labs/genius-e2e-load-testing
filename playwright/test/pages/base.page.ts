@@ -1,13 +1,10 @@
-import { Page } from '@playwright/test';
+// base.page.ts
+import type { Page } from "@playwright/test";
 
-export class BasePage {
-    constructor(public readonly page: Page) {}
+export abstract class BasePage {
+  protected readonly page: Page;
 
-    async waitForTimeout(timeout: number): Promise<void> {
-        await this.page.waitForTimeout(timeout);
-    }
-
-    async getTitle(): Promise<string> {
-        return await this.page.title();
-    }
+  constructor(page: Page) {
+    this.page = page;
+  }
 }

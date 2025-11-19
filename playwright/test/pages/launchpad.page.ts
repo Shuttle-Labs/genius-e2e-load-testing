@@ -1,10 +1,14 @@
 import { Page, Locator } from '@playwright/test';
 import { TableComponent } from '../components/common/table.component';
+import { BasePage } from './base.page';
+import { NotificationsComponent } from '../components/notifications.component';
 
-export class LaunchpadPage extends TableComponent {
+export class LaunchpadPage extends BasePage {
     readonly launchpadsNav: Locator;
     readonly newPairsItem: Locator;
     readonly newPairsTokenText: Locator;
+    readonly tableComponent: TableComponent;
+    readonly notificationsComponent: NotificationsComponent;
 
     constructor(page: Page) {
         super(page);
@@ -13,11 +17,14 @@ export class LaunchpadPage extends TableComponent {
         this.newPairsTokenText = this.newPairsItem.locator(
             '[data-sentry-component="renderTokenText"]'
         );
+
+        this.tableComponent = new TableComponent(page);
+        this.notificationsComponent = new NotificationsComponent(page);
     }
 
     async fillNewPairsValue(value: string): Promise<void> {
-        await this.quickBuyInput.clear();
-        await this.quickBuyInput.fill(value);
+        await this.tableComponent.quickBuyInput.clear();
+        await this.tableComponent.quickBuyInput.fill(value);
         await this.page.press('body', 'Enter');
         await this.page.waitForTimeout(4000); // Wait for the results to load available token
     }
