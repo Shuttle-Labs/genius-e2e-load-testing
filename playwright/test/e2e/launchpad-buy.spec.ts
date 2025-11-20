@@ -5,7 +5,7 @@ import { HoldingsPage } from '../pages/holdings.page';
 import { TOKEN } from '../constants/token';
 import { MESSAGES } from '../constants/messages';
 
-test("Buy token on Solana Launchpad", async ({ dapp, page }) => {
+test("Buy token on Solana Launchpad", async ({ dapp }) => {
   const launchpad = new LaunchpadPage(dapp);
 
   await launchpad.openLaunchpads();
@@ -22,7 +22,7 @@ test("Buy token on Solana Launchpad", async ({ dapp, page }) => {
   await launchpad.notificationsComponent.verifyTransactionToken(tokenLabel);
 });
 
-test("Buy token and Sell - Launchpad/Holdings page", async ({ dapp, page }) => {
+test("Buy token and Sell - Launchpad/Holdings page", async ({ dapp }) => {
   const launchpad = new LaunchpadPage(dapp);
   const holdings = new HoldingsPage(dapp);
 
@@ -33,6 +33,7 @@ test("Buy token and Sell - Launchpad/Holdings page", async ({ dapp, page }) => {
 
   await launchpad.notificationsComponent.verifySuccessMessage();
   await holdings.openHoldings();
+  await holdings.clickSwitchButton();
   await holdings.clickSellAll(tokenLabel);
   await launchpad.notificationsComponent.openNotifications();
   await launchpad.notificationsComponent.verifyLastNotificationDisplayed()
@@ -40,5 +41,4 @@ test("Buy token and Sell - Launchpad/Holdings page", async ({ dapp, page }) => {
   await launchpad.notificationsComponent.checkTransactionStatus(MESSAGES.SUCCESS);
   await launchpad.notificationsComponent.verifyLastNotificationContainsToken(tokenLabel);
   await launchpad.notificationsComponent.verifyTransactionToken(tokenLabel);
-  await page.pause();
 });

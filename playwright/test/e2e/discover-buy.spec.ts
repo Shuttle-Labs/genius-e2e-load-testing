@@ -7,7 +7,7 @@ import { MESSAGES } from '../constants/messages';
 
 test('Buy token on Discover page and verify details', async ({ dapp }) => {
     const discover = new DiscoverPage(dapp);
-    
+
     await discover.fillQuickBuy(TOKEN.TEST_VALUE_0_001);
 
     const tokenLabel = await discover.clickFirstToken(TOKEN.TEST_VALUE_0_001);
@@ -21,7 +21,7 @@ test('Buy token on Discover page and verify details', async ({ dapp }) => {
     await discover.notificationsComponent.verifyTransactionToken(tokenLabel);
 });
 
-test('Buy token and Sell - Discover/Holdings page', async ({ dapp, page }) => {
+test('Buy token and Sell - Discover/Holdings page', async ({ dapp }) => {
     const discover = new DiscoverPage(dapp);
     const holdings = new HoldingsPage(dapp);
 
@@ -31,6 +31,7 @@ test('Buy token and Sell - Discover/Holdings page', async ({ dapp, page }) => {
 
     await discover.notificationsComponent.verifySuccessMessage();
     await holdings.openHoldings();
+    await holdings.clickSwitchButton();
     await holdings.clickSellAll(tokenLabel);
     await discover.notificationsComponent.verifySuccessMessage();
     await discover.notificationsComponent.openNotifications();
@@ -39,5 +40,4 @@ test('Buy token and Sell - Discover/Holdings page', async ({ dapp, page }) => {
     await discover.notificationsComponent.checkTransactionStatus(MESSAGES.SUCCESS);
     await discover.notificationsComponent.verifyLastNotificationContainsToken(tokenLabel);
     await discover.notificationsComponent.verifyTransactionToken(tokenLabel);
-    await page.pause();
 });

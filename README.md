@@ -1,50 +1,90 @@
-# Playwright + TypeScript + Page Object Starter
+# Genius E2E Testing
 
-Clean starter template with:
-- Playwright Test + TS
-- Page Object Model (BasePage, LoginPage example)
-- Custom fixtures (typed) for page objects
-- ESLint + Prettier + EditorConfig
-- GitHub Actions CI workflow
-- .env example & baseURL support
+End-to-end testing project for TradeGenius:
 
-## Quick Start
+- **Playwright + Synpress (MetaMask)** — UI tests with wallet authentication
 
-```bash
-# 1) install deps
+- `playwright/` – UI/e2e tests
+
+---
+
+## 1. Prerequisites
+
+- Node.js **>= 20**
+- npm **>= 9**
+- Git
+- Linux/macOS/WSL2 (project is run inside WSL2 on Windows)
+
+---
+
+## 2. Project Structure
+
+All tests that require wallet login use wallet.fixtures.ts.
+There we:
+
+open staging app,
+connect MetaMask via Synpress,
+confirm signature(s),
+return an already-logged-in dapp page for tests.
+
+Page Objects / Components live under playwright/test/pages and playwright/test/components.
+
+## 3. Environment Variables
+
+Create .env in the project root (next to package.json) using .env.example as a reference:
+
+BASE_URL=staging.here
+
+# MetaMask test wallet used by Synpress
+SEED_PHRASE="your seed phrase words..."
+METAMASK_PASSWORD="YourStrongPassword123"
+
+## 4. Install Dependencies
+
+From the repo root:
+
 npm ci
 
-# 2) install browsers
+Then install Playwright browsers (one time):
+
+cd playwright
 npx playwright install --with-deps
 
-# 3) run tests
-npm test
-npm run test:ui
+## 5. Build Synpress MetaMask Cache
 
-# 4) open report
-npm run report
-```
+Synpress downloads MetaMask and builds a cache for wallet setup.
+Run this once (or whenever demo.setup.js / SEED_PHRASE changes):
 
-## Environment
-Create `.env` (see `.env.example`).
+cd playwright
+npx synpress test/wallet-setup
+# or, if you prefer npm script from root:
+# npm run pw:syn:cache
 
-```env
-BASE_URL=https://example.com
-```
+This will:
 
-## Structure
-```
-tests/
-  fixtures/test.ts        # typed fixtures expose page objects
-  pages/BasePage.ts
-  pages/LoginPage.ts
-  components/Header.ts
-  example.spec.ts         # sample using the fixtures
-playwright.config.ts
-```
+download MetaMask extension,
+run wallet-setup/demo.setup.js,
+import wallet using SEED_PHRASE and METAMASK_PASSWORD,
+store the result in .cache-synpress/.
 
-## CI
-Minimal workflow in `.github/workflows/ci.yml` runs Playwright on push/PR.
+## 6. Running Playwright + Synpress tests
 
-## Add k6 later
-You already have `k6/` folder; place scripts there and wire a workflow or run locally.
+All Playwright work happens inside playwright/ directory.
+
+"scripts": {
+
+  // Playwright
+  "pw:install": "playwright install --with-deps",
+  "pw:test": "playwright test",
+  "pw:test:ui": "playwright test --ui",
+  "pw:syn:cache": "synpress test/wallet-setup",
+
+}
+
+## 9. Troubleshooting
+
+MetaMask cache error (Cache for XXXXX does not exist)
+
+Run cd playwright && npx synpress test/wallet-setup again.
+
+Make sure .cache-synpress/ is not ignored/removed between runs if you rely on it.

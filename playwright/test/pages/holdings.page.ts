@@ -3,10 +3,16 @@ import { BasePage } from './base.page';
 
 export class HoldingsPage extends BasePage {
     readonly holdingsNav: Locator;
+    readonly switchButton: Locator;
+    readonly sellAllButton: Locator;
+    readonly mostRecentButton: Locator;
 
     constructor(page: Page) {
         super(page);
         this.holdingsNav = this.page.getByText(/Holdings/i);
+        this.switchButton = this.page.locator('[data-sentry-component="DesktopPorfolioPage"] [aria-label="Toggle degen"]');
+        this.sellAllButton = this.page.locator('[data-sentry-source-file="AdvancedPositionTable.tsx"] div .flex-row.w-full');
+        this.mostRecentButton = this.page.locator('[data-sentry-source-file="AdvancedPositionTable.tsx"] [class="lucide lucide-clock cursor-pointer transition-colors text-genius-cream"]').first();
     }
 
     async openHoldings(): Promise<void> {
@@ -14,18 +20,16 @@ export class HoldingsPage extends BasePage {
         await this.holdingsNav.click();
     }
 
-    getRow(tokenLabel: string): Locator {
-        return this.page
-            .locator('div[style*="overflow: hidden auto"] >> nth=1')
-            .filter({ hasText: tokenLabel })
-            .first();
+    async clickSwitchButton(): Promise<void> {
+        await this.switchButton.click();
     }
 
     async clickSellAll(tokenLabel: string): Promise<void> {
-        const row = this.getRow(tokenLabel);
+        const row = this.page.locator(
+            '[data-sentry-source-file="AdvancedPositionTable.tsx"] div.flex-row.w-full'
+        ).filter({ hasText: tokenLabel });
 
-        await row.waitFor({ state: 'visible', timeout: 10000 });
+        await row.locator('button').click();
 
-        await row.getByRole('button', { name: /Sell All/i }).click();
     }
 }
