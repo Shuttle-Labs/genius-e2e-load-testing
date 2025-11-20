@@ -1,8 +1,10 @@
-const { defineWalletSetup } = require('@synthetixio/synpress');
-const { MetaMask } = require('@synthetixio/synpress/playwright');
-require('dotenv').config();
+import { defineWalletSetup } from '@synthetixio/synpress';
+import { MetaMask } from '@synthetixio/synpress/playwright';
+import dotenv from 'dotenv';
 
-const SEED_PHRASE = (process.env.SEED_PHRASE || 'test test test test test test test test test test test test').trim();
+dotenv.config();
+
+const SEED_PHRASE = (process.env.SEED_PHRASE || 'brick jeans notice danger fatigue judge turtle retire miss hold office sauce').trim();
 const PASSWORD = (process.env.METAMASK_PASSWORD || 'Tester@1234').trim();
 
 const setup = defineWalletSetup(PASSWORD, async (context, walletPage) => {
@@ -10,5 +12,5 @@ const setup = defineWalletSetup(PASSWORD, async (context, walletPage) => {
   await metamask.importWallet(SEED_PHRASE);
 });
 
-module.exports = setup;
-module.exports.walletPassword = PASSWORD;
+export default setup;
+export const walletPassword = PASSWORD;
