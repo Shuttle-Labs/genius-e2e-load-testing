@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts,.js",
 
     "pw:install": "cd playwright && npx playwright install --with-deps",
-    "pw:syn:cache": "cd playwright && npx synpress test/wallet-setup",
+    "pw:syn:cache": "node scripts/run-synpress-cache.mjs",
     "pw:test": "cd playwright && npx playwright test",
     "pw:test:ui": "cd playwright && npx playwright test --ui",
     
